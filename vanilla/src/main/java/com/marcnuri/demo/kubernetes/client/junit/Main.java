@@ -66,10 +66,14 @@ public class Main implements Callable<Integer> {
 
   private Configuration initConfiguration() {
     final var ret = new Configuration();
-    ret.setProperty(AvailableSettings.URL, jdbcUrl);
+    ret.setProperty(AvailableSettings.URL, jdbcUrl + "?sslmode=disable&ssl=false");
     ret.setProperty(AvailableSettings.USER, user);
     ret.setProperty(AvailableSettings.PASS, password);
     ret.setProperty(AvailableSettings.HBM2DDL_AUTO, Action.UPDATE.getExternalHbm2ddlName());
+    ret.setProperty(AvailableSettings.C3P0_MIN_SIZE, "1");
+    ret.setProperty(AvailableSettings.C3P0_MAX_SIZE, "2");
+    ret.setProperty(AvailableSettings.C3P0_TIMEOUT, "60");
+
     Stream.of(KubernetesClientImplementation.class).forEach(ret::addAnnotatedClass);
     return ret;
   }

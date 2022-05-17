@@ -1,0 +1,30 @@
+name: E2E Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  vanilla:
+    name: Vanilla
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Minikube-Kubernetes
+        uses: manusa/actions-setup-minikube@v2.6.0
+        with:
+          minikube version: v1.25.2
+          kubernetes version: v1.23.6
+          driver: docker
+          github token: ${{ secrets.GITHUB_TOKEN }}
+          start args: '--force'
+      - name: Install Kubernetes Client
+        run: cd vanilla && mvn -s ${{ github.workspace }}/settings.xml verify

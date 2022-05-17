@@ -16,19 +16,13 @@ spec:
       value: "postgres"
     - name: POSTGRES_USER
       value: "postgres"
-    livenessProbe:
-      exec:
-        command:
-        - /bin/sh
-        - -c
-        - pg_isready
     readinessProbe:
       exec:
         command:
         - /bin/sh
         - -c
         - pg_isready
-      initialDelaySeconds: 3
+      initialDelaySeconds: 5
       periodSeconds: 1
       successThreshold: 1
       timeoutSeconds: 1

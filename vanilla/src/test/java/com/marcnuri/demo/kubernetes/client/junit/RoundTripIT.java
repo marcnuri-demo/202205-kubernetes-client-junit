@@ -33,6 +33,7 @@ class RoundTripIT {
     portForward = kc.pods().withName("postgresql").portForward(5432);
     assertThat(portForward)
       .hasFieldOrPropertyWithValue("alive", true)
+      .satisfies(pf -> assertThat(pf.getLocalAddress().isReachable(1000)).isTrue())
       .extracting(PortForward::errorOccurred).isEqualTo(false);
   }
 

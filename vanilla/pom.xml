@@ -13,6 +13,7 @@
     <version.fabric8-kubernetes-client>6.0-SNAPSHOT</version.fabric8-kubernetes-client>
     <version.hibernate-core>6.0.0.Final</version.hibernate-core>
     <version.junit>5.8.2</version.junit>
+    <version.maven.assembly.plugin>3.3.0</version.maven.assembly.plugin>
     <version.maven.failsafe.plugin>3.0.0-M6</version.maven.failsafe.plugin>
     <version.picocli>4.6.3</version.picocli>
     <version.postgresql>42.3.4</version.postgresql>
@@ -59,9 +60,18 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${version.maven.failsafe.plugin}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
+        <version>${version.maven.assembly.plugin}</version>
         <configuration>
           <archive>
             <manifest>
